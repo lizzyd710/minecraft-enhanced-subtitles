@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
-import net.minecraft.client.gui.overlay.SubtitleOverlayGui;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -41,10 +40,10 @@ public class OverlayEventHandler implements ISoundEventListener {
 
     private void render(Minecraft mc) {
         if (!this.enabled && mc.gameSettings.showSubtitles) {
-            //mc.getSoundHandler().addListener(this);
+            mc.getSoundHandler().addListener(this);
             this.enabled = true;
         } else if (this.enabled && !mc.gameSettings.showSubtitles) {
-            //mc.getSoundHandler().removeListener(this);
+            mc.getSoundHandler().removeListener(this);
             this.enabled = false;
         }
 
@@ -64,27 +63,27 @@ public class OverlayEventHandler implements ISoundEventListener {
             Iterator<ModSub> iterator = this.subtitles.iterator();
 
             while (iterator.hasNext()) {
-                ModSub subtitleoverlaygui$subtitle = iterator.next();
-                if (subtitleoverlaygui$subtitle.getStartTime() + 3000L <= Util.milliTime()) {
+                ModSub caption = iterator.next();
+                if (caption.getStartTime() + 3000L <= Util.milliTime()) {
                     iterator.remove();
                 } else {
-                    maxLength = Math.max(maxLength, mc.fontRenderer.getStringWidth(subtitleoverlaygui$subtitle.getString()));
+                    maxLength = Math.max(maxLength, mc.fontRenderer.getStringWidth(caption.getString()));
                 }
             }
 
-            maxLength = maxLength + mc.fontRenderer.getStringWidth("<") + mc.fontRenderer.getStringWidth(" ") +
-                    mc.fontRenderer.getStringWidth(">") + mc.fontRenderer.getStringWidth(" ");
+            maxLength = maxLength + mc.fontRenderer.getStringWidth("<") + mc.fontRenderer.getStringWidth(" ")
+                    + mc.fontRenderer.getStringWidth(">") + mc.fontRenderer.getStringWidth(" ");
 
-            for (ModSub subtitleoverlaygui$subtitle1 : this.subtitles) {
-                String s = subtitleoverlaygui$subtitle1.getString();
-                Vec3d vec3d4 = subtitleoverlaygui$subtitle1.getLocation().subtract(playerPosVec).normalize();
-                double d0 = -vec3d3.dotProduct(vec3d4);
-                double d1 = -vec3d1.dotProduct(vec3d4);
+            for (ModSub caption1 : this.subtitles) {
+                String s = caption1.getString();
+                Vec3d distanceToPlayer = caption1.getLocation().subtract(playerPosVec).normalize();
+                double d0 = -vec3d3.dotProduct(distanceToPlayer);
+                double d1 = -vec3d1.dotProduct(distanceToPlayer);
                 boolean flag = d1 > 0.5D;
                 int l = maxLength / 2;
                 int subtitleWidth = mc.fontRenderer.getStringWidth(s);
                 int l1 = MathHelper.floor(MathHelper.clampedLerp(255.0D, 75.0D,
-                        (double) ((float) (Util.milliTime() - subtitleoverlaygui$subtitle1.getStartTime()) / 3000.0F)));
+                        (double) ((float) (Util.milliTime() - caption1.getStartTime()) / 3000.0F)));
                 int i2 = l1 << 16 | l1 << 8 | l1;
                 GlStateManager.pushMatrix();
                 GlStateManager.translatef((float) mc.mainWindow.getScaledWidth() - (float) l * 1.0F - 2.0F,
@@ -104,7 +103,7 @@ public class OverlayEventHandler implements ISoundEventListener {
                 }
                 mc.fontRenderer.drawString(s, (float) (-subtitleWidth / 2), (float) (-4), i2 + -16777216);
                 GlStateManager.popMatrix();
-                ++i;
+                i++;
             }
             GlStateManager.disableBlend();
             GlStateManager.popMatrix();
@@ -116,9 +115,9 @@ public class OverlayEventHandler implements ISoundEventListener {
         if (accessor.getSubtitle() != null) {
             String s = accessor.getSubtitle().getFormattedText();
             if (!this.subtitles.isEmpty()) {
-                for (ModSub subtitleoverlaygui$subtitle : this.subtitles) {
-                    if (subtitleoverlaygui$subtitle.getString().equals(s)) {
-                        subtitleoverlaygui$subtitle.refresh(new Vec3d((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ()));
+                for (ModSub caption : this.subtitles) {
+                    if (caption.getString().equals(s)) {
+                        caption.refresh(new Vec3d((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ()));
                         return;
                     }
                 }
