@@ -26,14 +26,14 @@ public class OverlayEventHandler implements ISoundEventListener {
     private static final Logger LOGGER = LogManager.getLogger();
     private boolean enabled;
     private final List<SubtitleOverlayGui.Subtitle> subtitles = Lists.newArrayList();
-    private float TEST_Y = 0.0F;
-
+    // just for testing
+    private final float GLTRANSLATE_X = 2.0F; //2.0F is default/original value
+    private final int GLTRANSLATE_Y1 = 30; //30 is default/original value
 
     @SubscribeEvent(receiveCanceled = true)
     public void onEvent(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.SUBTITLES) {
             // this is where the magic happens
-            LOGGER.info("SUBTITLE PRERENDER EVENT");
             Minecraft mc = Minecraft.getInstance();
             event.setCanceled(true);
             render(mc);
@@ -88,8 +88,8 @@ public class OverlayEventHandler implements ISoundEventListener {
                         (double) ((float) (Util.milliTime() - caption1.getStartTime()) / 3000.0F)));
                 int textColor = l1 << 16 | l1 << 8 | l1;
                 GlStateManager.pushMatrix();
-                GlStateManager.translatef((float) mc.mainWindow.getScaledWidth() - (float) l * 1.0F - 2.0F,
-                        (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (i * 10) * 1.0F,
+                GlStateManager.translatef((float) mc.mainWindow.getScaledWidth() - (float) l * 1.0F - GLTRANSLATE_X,
+                        (float) (mc.mainWindow.getScaledHeight() - GLTRANSLATE_Y1) - (float) (i * 10) * 1.0F,
                         0.0F);
                 GlStateManager.scalef(1.0F, 1.0F, 1.0F); // might be unnecessary
                 AbstractGui.fill(-l - 1, -5, l + 1,
@@ -98,11 +98,11 @@ public class OverlayEventHandler implements ISoundEventListener {
                 if (!flag) {
                     if (d0 > 0.0D)
                         mc.fontRenderer.drawString(">", (float) (l - mc.fontRenderer.getStringWidth(">")),
-                                TEST_Y, textColor - 16777216);
+                                -4.0F, textColor - 16777216);
                     else if (d0 < 0.0D) 
-                        mc.fontRenderer.drawString("<", (float) (-l), TEST_Y, textColor - 16777216);
+                        mc.fontRenderer.drawString("<", (float) (-l), -4.0F, textColor - 16777216);
                 }
-                mc.fontRenderer.drawString(captionText, (float) (-subtitleWidth / 2), TEST_Y, textColor - 16777216);
+                mc.fontRenderer.drawString(captionText, (float) (-subtitleWidth / 2), -4.0F, textColor - 16777216);
                 GlStateManager.popMatrix();
                 i++;
             }
