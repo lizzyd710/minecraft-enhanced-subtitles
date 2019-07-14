@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISoundEventListener;
 import net.minecraft.client.audio.SoundEventAccessor;
+import net.minecraft.client.gui.overlay.SubtitleOverlayGui;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -24,7 +25,8 @@ import net.minecraft.client.gui.AbstractGui;
 public class OverlayEventHandler implements ISoundEventListener {
     private static final Logger LOGGER = LogManager.getLogger();
     private boolean enabled;
-    private final List<ModSub> subtitles = Lists.newArrayList();
+    private final List<SubtitleOverlayGui.Subtitle> subtitles = Lists.newArrayList();
+    private float TEST_Y = 0.0F;
 
 
     @SubscribeEvent(receiveCanceled = true)
@@ -60,10 +62,10 @@ public class OverlayEventHandler implements ISoundEventListener {
             Vec3d vec3d3 = vec3d1.crossProduct(vec3d2);
             int i = 0;
             int maxLength = 0;
-            Iterator<ModSub> iterator = this.subtitles.iterator();
+            Iterator<SubtitleOverlayGui.Subtitle> iterator = this.subtitles.iterator();
 
             while (iterator.hasNext()) {
-                ModSub caption = iterator.next();
+                SubtitleOverlayGui.Subtitle caption = iterator.next();
                 if (caption.getStartTime() + 3000L <= Util.milliTime()) {
                     iterator.remove();
                 } else {
@@ -74,34 +76,33 @@ public class OverlayEventHandler implements ISoundEventListener {
             maxLength = maxLength + mc.fontRenderer.getStringWidth("<") + mc.fontRenderer.getStringWidth(" ")
                     + mc.fontRenderer.getStringWidth(">") + mc.fontRenderer.getStringWidth(" ");
 
-            for (ModSub caption1 : this.subtitles) {
-                String s = caption1.getString();
+            for (SubtitleOverlayGui.Subtitle caption1 : this.subtitles) {
+                String captionText = caption1.getString();
                 Vec3d distanceToPlayer = caption1.getLocation().subtract(playerPosVec).normalize();
                 double d0 = -vec3d3.dotProduct(distanceToPlayer);
                 double d1 = -vec3d1.dotProduct(distanceToPlayer);
                 boolean flag = d1 > 0.5D;
                 int l = maxLength / 2;
-                int subtitleWidth = mc.fontRenderer.getStringWidth(s);
+                int subtitleWidth = mc.fontRenderer.getStringWidth(captionText);
                 int l1 = MathHelper.floor(MathHelper.clampedLerp(255.0D, 75.0D,
                         (double) ((float) (Util.milliTime() - caption1.getStartTime()) / 3000.0F)));
-                int i2 = l1 << 16 | l1 << 8 | l1;
+                int textColor = l1 << 16 | l1 << 8 | l1;
                 GlStateManager.pushMatrix();
                 GlStateManager.translatef((float) mc.mainWindow.getScaledWidth() - (float) l * 1.0F - 2.0F,
                         (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (i * 10) * 1.0F,
                         0.0F);
-                GlStateManager.scalef(1.0F, 1.0F, 1.0F);
+                GlStateManager.scalef(1.0F, 1.0F, 1.0F); // might be unnecessary
                 AbstractGui.fill(-l - 1, -5, l + 1,
                         5, mc.gameSettings.func_216841_b(0.8F));
                 GlStateManager.enableBlend();
                 if (!flag) {
-                    if (d0 > 0.0D) {
+                    if (d0 > 0.0D)
                         mc.fontRenderer.drawString(">", (float) (l - mc.fontRenderer.getStringWidth(">")),
-                                (float) (-4), i2 + -16777216);
-                    } else if (d0 < 0.0D) {
-                        mc.fontRenderer.drawString("<", (float) (-l), (float) (-4), i2 + -16777216);
-                    }
+                                TEST_Y, textColor - 16777216);
+                    else if (d0 < 0.0D) 
+                        mc.fontRenderer.drawString("<", (float) (-l), TEST_Y, textColor - 16777216);
                 }
-                mc.fontRenderer.drawString(s, (float) (-subtitleWidth / 2), (float) (-4), i2 + -16777216);
+                mc.fontRenderer.drawString(captionText, (float) (-subtitleWidth / 2), TEST_Y, textColor - 16777216);
                 GlStateManager.popMatrix();
                 i++;
             }
@@ -115,43 +116,15 @@ public class OverlayEventHandler implements ISoundEventListener {
         if (accessor.getSubtitle() != null) {
             String s = accessor.getSubtitle().getFormattedText();
             if (!this.subtitles.isEmpty()) {
-                for (ModSub caption : this.subtitles) {
+                for (SubtitleOverlayGui.Subtitle caption : this.subtitles) {
                     if (caption.getString().equals(s)) {
                         caption.refresh(new Vec3d((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ()));
                         return;
                     }
                 }
             }
-            this.subtitles.add(new ModSub(s, new Vec3d((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ())));
-        }
-    }
-
-    private class ModSub {
-        private final String subtitle;
-        private long startTime;
-        private Vec3d location;
-
-        ModSub(String subtitleIn, Vec3d locationIn) {
-            this.subtitle = subtitleIn;
-            this.location = locationIn;
-            this.startTime = Util.milliTime();
-        }
-
-        String getString() {
-            return this.subtitle;
-        }
-
-        long getStartTime() {
-            return this.startTime;
-        }
-
-        Vec3d getLocation() {
-            return this.location;
-        }
-
-        void refresh(Vec3d locationIn) {
-            this.location = locationIn;
-            this.startTime = Util.milliTime();
+            this.subtitles.add(new SubtitleOverlayGui(Minecraft.getInstance()).
+                    new Subtitle(s, new Vec3d((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ())));
         }
     }
 }
