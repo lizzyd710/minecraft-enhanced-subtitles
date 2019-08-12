@@ -1,5 +1,7 @@
 package lizzyd710.movablesubtitles;
 
+import java.util.Iterator;
+import java.util.List;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
@@ -13,17 +15,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.Iterator;
-import java.util.List;
-
 import net.minecraft.client.gui.AbstractGui;
 
 @EventBusSubscriber
 public class OverlayEventHandler implements ISoundEventListener {
-    private static final Logger LOGGER = LogManager.getLogger();
     private boolean enabled;
     private final List<SubtitleOverlayGui.Subtitle> subtitles = Lists.newArrayList();
     // just for testing
@@ -34,9 +29,8 @@ public class OverlayEventHandler implements ISoundEventListener {
     public void onEvent(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.SUBTITLES) {
             // this is where the magic happens
-            Minecraft mc = Minecraft.getInstance();
             event.setCanceled(true);
-            render(mc);
+            render(Minecraft.getInstance());
         }
     }
 
