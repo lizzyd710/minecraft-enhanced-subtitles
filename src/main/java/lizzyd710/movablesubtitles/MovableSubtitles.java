@@ -1,7 +1,9 @@
 package lizzyd710.movablesubtitles;
 
+import lizzyd710.movablesubtitles.config.ConfigHolder;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.InterModComms;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -10,8 +12,8 @@ import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import java.util.stream.Collectors;
+import net.minecraftforge.fml.config.ModConfig;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod("movablesubtitles")
@@ -31,6 +33,9 @@ public class MovableSubtitles
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        final ModLoadingContext modLoadingContext = ModLoadingContext.get();
+        modLoadingContext.registerConfig(ModConfig.Type.CLIENT, ConfigHolder.CLIENT_SPEC);
     }
 
     private void setup(final FMLCommonSetupEvent event)
