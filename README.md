@@ -5,4 +5,4 @@ In Minecraft update 1.9, subtitles were finally implemented. They are shown in t
 This mod is in the very early stages of development and is not ready to be installed yet. As it is developed more information regarding installation and contribution will be added to this file and the wiki.
 
 ### Acknowledgements
-Shoutout to Marty and Colton for giving me the idea for this mod!
+Shoutout to Marty and [Colton](https://github.com/colton4e) for giving me the idea for this mod!
