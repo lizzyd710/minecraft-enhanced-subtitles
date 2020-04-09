@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
+import lizzyd710.movablesubtitles.config.MovableSubtitlesConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.ISound;
 import net.minecraft.client.audio.ISoundEventListener;
@@ -21,9 +22,7 @@ import net.minecraft.client.gui.AbstractGui;
 public class OverlayEventHandler implements ISoundEventListener {
     private boolean enabled;
     private final List<SubtitleOverlayGui.Subtitle> subtitles = Lists.newArrayList();
-    // just for testing
-    private final float GLTRANSLATE_X = 2.0F; //2.0F is default/original value
-    private final int GLTRANSLATE_Y1 = 30; //30 is default/original value
+
 
     @SubscribeEvent(receiveCanceled = true)
     public void onEvent(RenderGameOverlayEvent.Pre event) {
@@ -35,6 +34,8 @@ public class OverlayEventHandler implements ISoundEventListener {
     }
 
     private void render(Minecraft mc) {
+        float GLTRANSLATE_X = MovableSubtitlesConfig.translateX; //2.0F is default/original value
+        final int GLTRANSLATE_Y1 = MovableSubtitlesConfig.translateY; //30 is default/original value
         if (!this.enabled && mc.gameSettings.showSubtitles) {
             mc.getSoundHandler().addListener(this);
             this.enabled = true;
