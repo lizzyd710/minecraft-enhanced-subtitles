@@ -9,12 +9,12 @@ final class ClientConfig {
 
     ClientConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("general");
-        xPos = builder.comment("An example double in client config.")
+        xPos = builder.comment("The new x position for subtitles.")
                 .translation("movablesubtitles.config.xPos")
-                .defineInRange("xPos", 2.0, 2.0, 2.0);
-        yPos = builder.comment("An example int in client config.")
+                .defineInRange("xPos", 2.0, 0.0, 100.0);
+        yPos = builder.comment("The new y position for subtitles.")
                 .translation("movablesubtitles.config.yPos")
-                .defineInRange("yPos", 30, 30, 30);
+                .defineInRange("yPos", 30, 0, 250);
         builder.pop();
     }
 }
