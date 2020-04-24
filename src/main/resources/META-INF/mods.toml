@@ -6,7 +6,7 @@ issueTrackerURL="https://github.com/lizzyd710/minecraft-movable-subtitles/issues
 [[mods]] #mandatory
 modId="movablesubtitles" #mandatory
 
-# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+# The version number of the mod - there's a few well known ${} variables usable here or just hardcode it
 version="${file.jarVersion}" #mandatory
 displayName="Movable Subtitles" #mandatory
 
@@ -21,8 +21,7 @@ authors="Elizabeth Sherrock" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This is a long form description of the mod. You can write whatever you want here
-
+This mod allows the user to change the position of the subtitle overlay.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.movablesubtitles]] #optional
