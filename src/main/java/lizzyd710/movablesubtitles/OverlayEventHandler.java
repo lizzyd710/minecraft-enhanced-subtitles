@@ -35,8 +35,8 @@ public class OverlayEventHandler implements ISoundEventListener {
     }
 
     private void render(Minecraft mc) {
-        float GLTRANSLATE_X = MovableSubtitlesConfig.translateX; //2.0F is default/original value
-        final int GLTRANSLATE_Y1 = MovableSubtitlesConfig.translateY; //30 is default/original value
+        float GLTRANSLATE_X = MovableSubtitlesConfig.overlayPosition.getXPos(); //2.0F is default/original value
+        final int GLTRANSLATE_Y1 = MovableSubtitlesConfig.overlayPosition.getYPos(); //30 is default/original value
         if (!this.enabled && mc.gameSettings.showSubtitles) {
             mc.getSoundHandler().addListener(this);
             this.enabled = true;

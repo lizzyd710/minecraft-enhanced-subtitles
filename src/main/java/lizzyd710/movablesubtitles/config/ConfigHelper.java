@@ -7,8 +7,7 @@ import net.minecraftforge.fml.config.ModConfig;
 public class ConfigHelper {
 
     public static void bakeClient(final ModConfig config) {
-        MovableSubtitlesConfig.translateX = ConfigHolder.CLIENT.xPos.get().floatValue();
-        MovableSubtitlesConfig.translateY = ConfigHolder.CLIENT.yPos.get();
+        MovableSubtitlesConfig.overlayPosition = ConfigHolder.CLIENT.overlayPosition.get();
     }
     private static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {
         modConfig.getConfigData().set(path, newValue);
