@@ -24,7 +24,6 @@ public class OverlayEventHandler implements ISoundEventListener {
     private boolean enabled;
     private final List<SubtitleOverlayGui.Subtitle> subtitles = Lists.newArrayList();
 
-
     @SubscribeEvent(receiveCanceled = true)
     public void onEvent(RenderGameOverlayEvent.Pre event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.SUBTITLES) {
@@ -35,8 +34,6 @@ public class OverlayEventHandler implements ISoundEventListener {
     }
 
     private void render(Minecraft mc) {
-        float GLTRANSLATE_X = MovableSubtitlesConfig.overlayPosition.getXPos(); //2.0F is default/original value
-        final int GLTRANSLATE_Y1 = MovableSubtitlesConfig.overlayPosition.getYPos(); //30 is default/original value
         if (!this.enabled && mc.gameSettings.showSubtitles) {
             mc.getSoundHandler().addListener(this);
             this.enabled = true;
@@ -84,10 +81,54 @@ public class OverlayEventHandler implements ISoundEventListener {
                         (double) ((float) (Util.milliTime() - caption1.getStartTime()) / 3000.0F)));
                 int textColor = l1 << 16 | l1 << 8 | l1;
                 GlStateManager.pushMatrix();
-                GlStateManager.translatef((float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - GLTRANSLATE_X,
-                        (float) (mc.mainWindow.getScaledHeight() - GLTRANSLATE_Y1) - (float) (captionIndex * 10) * 1.0F,
-                        0.0F);
-                GlStateManager.scalef(1.0F, 1.0F, 1.0F); // might be unnecessary
+
+                /*
+                This is where the change happens
+                 */
+                OverlayPosition position = MovableSubtitlesConfig.overlayPosition;
+                //TODO: Make this code smarter
+                // Commenting out the cases that aren't ready/being developed
+                switch (position) {
+                    case BOTTOM_RIGHT:
+                        GlStateManager.translatef(
+                                (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
+                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
+                                0.0F);
+                        break;
+                    /*case BOTTOM_CENTER:
+                        break;*/
+                    case BOTTOM_LEFT:
+                        GlStateManager.translatef(
+                                (float) halfMaxLength * 1.0F,
+                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
+                                0.0F);
+                        break;
+                    /*case CENTER_LEFT:
+                        break;
+                    case TOP_LEFT:
+                        break;
+                    case TOP_CENTER:
+                        break;
+                    case TOP_RIGHT:
+                        break;
+                    case CENTER_RIGHT:
+                        break;*/
+                    default: //if there's any invalid input just show it in the bottom right
+                        GlStateManager.translatef(
+                                (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
+                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
+                                0.0F);
+                        break;
+                }
+                /*GlStateManager.translatef(
+                        (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
+                        (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
+                        0.0F);*/
+
+                /*
+                This stuff stays the same for now, but with new features, more change will happen
+                 */
+                GlStateManager.scalef(1.0F, 1.0F, 1.0F);
                 AbstractGui.fill(-halfMaxLength - 1, -5, halfMaxLength + 1,
                         5, mc.gameSettings.func_216841_b(0.8F));
                 GlStateManager.enableBlend();
