@@ -86,22 +86,19 @@ public class OverlayEventHandler implements ISoundEventListener {
                 This is where the change happens
                  */
                 OverlayPosition position = MovableSubtitlesConfig.overlayPosition;
+                float xTranslate, yTranslate;
                 //TODO: Make this code smarter
                 // Commenting out the cases that aren't ready/being developed
                 switch (position) {
                     case BOTTOM_RIGHT:
-                        GlStateManager.translatef(
-                                (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
-                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
-                                0.0F);
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
                         break;
                     /*case BOTTOM_CENTER:
                         break;*/
                     case BOTTOM_LEFT:
-                        GlStateManager.translatef(
-                                (float) halfMaxLength * 1.0F,
-                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
-                                0.0F);
+                        xTranslate = (float) halfMaxLength * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
                         break;
                     /*case CENTER_LEFT:
                         break;
@@ -114,16 +111,11 @@ public class OverlayEventHandler implements ISoundEventListener {
                     case CENTER_RIGHT:
                         break;*/
                     default: //if there's any invalid input just show it in the bottom right
-                        GlStateManager.translatef(
-                                (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
-                                (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
-                                0.0F);
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
                         break;
                 }
-                /*GlStateManager.translatef(
-                        (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F,
-                        (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F,
-                        0.0F);*/
+                GlStateManager.translatef(xTranslate, yTranslate, 0.0F);
 
                 /*
                 This stuff stays the same for now, but with new features, more change will happen
