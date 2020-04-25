@@ -17,13 +17,13 @@ public enum OverlayPosition {
     CENTER_RIGHT(7, 2.0F, 30);
 
     private final int id;
-    private final float xPos;
-    private final int yPos;
+    private final float xOffset;
+    private final int yOffset;
 
     OverlayPosition(int i, float x, int y) {
         id = i;
-        xPos = x;
-        yPos = y;
+        xOffset = x;
+        yOffset = y;
     }
 
     /**
@@ -40,8 +40,8 @@ public enum OverlayPosition {
      *
      * @return the x value used to transform the overlay into the enum's position
      */
-    public float getXPos() {
-        return this.xPos;
+    public float getXOffset() {
+        return this.xOffset;
     }
 
     /**
@@ -49,7 +49,7 @@ public enum OverlayPosition {
      *
      * @return the y value used to transform the overlay into the enum's position
      */
-    public int getYPos() {
-        return this.yPos;
+    public int getYOffset() {
+        return this.yOffset;
     }
 }
