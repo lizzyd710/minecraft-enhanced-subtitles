@@ -9,7 +9,8 @@ final class ClientConfig {
 
     ClientConfig(final ForgeConfigSpec.Builder builder) {
         builder.push("general");
-        overlayPosition = builder.comment("The position for the subtitle overlay.")
+        overlayPosition = builder.comment("The position for the subtitle overlay.\nAcceptable values: BOTTOM_RIGHT, " +
+                "BOTTOM_CENTER, BOTTOM_LEFT, CENTER_LEFT, TOP_LEFT, TOP_CENTER, TOP_RIGHT, CENTER_RIGHT")
                 .translation("movablesubtitles.config.overlayPosition")
                 .defineEnum("overlayPosition", OverlayPosition.BOTTOM_RIGHT);
         builder.pop();
