@@ -115,13 +115,13 @@ public class OverlayEventHandler implements ISoundEventListener {
                     case TOP_RIGHT:
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
                         // TESTING
-                        yTranslate = (float) (captionIndex * 10) * 1.0F;
+                        yTranslate = (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
                     //case CENTER_RIGHT:
                     //break;
                     default: //if there's any invalid input just show it in the bottom right
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
-                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
                 }
                 GlStateManager.translatef(xTranslate, yTranslate, 0.0F);
