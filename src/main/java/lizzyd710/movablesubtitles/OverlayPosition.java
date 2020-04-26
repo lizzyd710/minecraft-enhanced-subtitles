@@ -13,5 +13,5 @@ public enum OverlayPosition {
     TOP_LEFT,
     TOP_CENTER,
     TOP_RIGHT,
-    CENTER_RIGHT;
+    CENTER_RIGHT
 }
