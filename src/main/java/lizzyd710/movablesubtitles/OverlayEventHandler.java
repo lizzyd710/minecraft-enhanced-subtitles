@@ -87,29 +87,38 @@ public class OverlayEventHandler implements ISoundEventListener {
                  */
                 OverlayPosition position = MovableSubtitlesConfig.overlayPosition;
                 float xTranslate, yTranslate;
+                // Factoring some numbers out so it's easier to tell what they do
+                // Also might be changed later when implementing more features.
+                int verticalSpacing = 10;
                 //TODO: Make this code smarter
                 // Commenting out the cases that aren't ready/being developed
                 switch (position) {
                     case BOTTOM_RIGHT:
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
-                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
                     /*case BOTTOM_CENTER:
                         break;*/
                     case BOTTOM_LEFT:
                         xTranslate = (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
-                    /*case CENTER_LEFT:
-                        break;
+                    //case CENTER_LEFT:
+                    //break;
                     case TOP_LEFT:
+                        xTranslate = (float) halfMaxLength * 1.0F;
+                        // NOT THE CORRECT VALUE
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
-                    case TOP_CENTER:
-                        break;
+                    //case TOP_CENTER:
+                    //break;
                     case TOP_RIGHT:
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
+                        // TESTING
+                        yTranslate = (float) (captionIndex * 10) * 1.0F;
                         break;
-                    case CENTER_RIGHT:
-                        break;*/
+                    //case CENTER_RIGHT:
+                    //break;
                     default: //if there's any invalid input just show it in the bottom right
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
                         yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * 10) * 1.0F;
