@@ -91,34 +91,39 @@ public class OverlayEventHandler implements ISoundEventListener {
                 // Also might be changed later when implementing more features.
                 int verticalSpacing = 10;
                 //TODO: Make this code smarter
-                // Commenting out the cases that aren't ready/being developed
                 switch (position) {
                     case BOTTOM_RIGHT:
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
                         yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
-                    /*case BOTTOM_CENTER:
-                        break;*/
+                    case BOTTOM_CENTER:
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() / 2;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 50) - (float) (captionIndex * verticalSpacing) * 1.0F;
+                        break;
                     case BOTTOM_LEFT:
                         xTranslate = (float) halfMaxLength * 1.0F;
                         yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
                         break;
-                    //case CENTER_LEFT:
-                    //break;
+                    case CENTER_LEFT:
+                        xTranslate = (float) halfMaxLength * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        break;
                     case TOP_LEFT:
                         xTranslate = (float) halfMaxLength * 1.0F;
-                        // NOT THE CORRECT VALUE
-                        yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
                         break;
-                    //case TOP_CENTER:
-                    //break;
+                    case TOP_CENTER:
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() / 2;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        break;
                     case TOP_RIGHT:
-                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
-                        // TESTING
-                        yTranslate = (float) (captionIndex * verticalSpacing) * 1.0F;
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
                         break;
-                    //case CENTER_RIGHT:
-                    //break;
+                    case CENTER_RIGHT:
+                        xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F;
+                        yTranslate = (float) (mc.mainWindow.getScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        break;
                     default: //if there's any invalid input just show it in the bottom right
                         xTranslate = (float) mc.mainWindow.getScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
                         yTranslate = (float) (mc.mainWindow.getScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
