@@ -10,12 +10,12 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
-apply plugin: 'eclipse'
+apply plugin: 'idea'
 apply plugin: 'maven-publish'
 
 version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'modid'
+group = 'lizzyd710.movablesubtitles' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'movablesubtitles'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -43,7 +43,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                movablesubtitles {
                     source sourceSets.main
                 }
             }
@@ -59,7 +59,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                movablesubtitles {
                     source sourceSets.main
                 }
             }
@@ -77,7 +77,7 @@ minecraft {
             args '--mod', 'movablesubtitles', '--all', '--output', file('src/generated/resources/')
 
             mods {
-                examplemod {
+                movablesubtitles {
                     source sourceSets.main
                 }
             }
