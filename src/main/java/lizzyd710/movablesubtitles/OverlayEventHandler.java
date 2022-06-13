@@ -18,6 +18,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -79,7 +80,7 @@ public class OverlayEventHandler extends GuiComponent implements SoundEventListe
                 int halfMaxLength = maxLength / 2;
                 int subtitleWidth = mc.font.width(captionText);
                 int l1 = Mth.floor(Mth.clampedLerp(255.0D, 75.0D,
-                        (double) ((float) (Util.getMillis() - caption1.getTime()) / 3000.0F)));
+                        (float) (Util.getMillis() - caption1.getTime()) / 3000.0F));
                 int textColor = l1 << 16 | l1 << 8 | l1;
                 poseStack.pushPose();
 
@@ -91,43 +92,38 @@ public class OverlayEventHandler extends GuiComponent implements SoundEventListe
                 // Factoring some numbers out so it's easier to tell what they do
                 // Also might be changed later when implementing more features.
                 int verticalSpacing = 10;
-                //TODO: Make this code smarter
                 switch (position) {
-                    case BOTTOM_RIGHT:
-                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
-                        break;
                     case BOTTOM_CENTER:
                         xTranslate = (float) mc.getWindow().getGuiScaledWidth() / 2;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 50) - (float) (captionIndex * verticalSpacing) * 1.0F;
+                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 50) - (float) (captionIndex * verticalSpacing);
                         break;
                     case BOTTOM_LEFT:
-                        xTranslate = (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
+                        xTranslate = (float) halfMaxLength;
+                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 30) - (float) (captionIndex * verticalSpacing);
                         break;
                     case CENTER_LEFT:
-                        xTranslate = (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        xTranslate = (float) halfMaxLength;
+                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5);
                         break;
                     case TOP_LEFT:
-                        xTranslate = (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        xTranslate = (float) halfMaxLength;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5);
                         break;
                     case TOP_CENTER:
                         xTranslate = (float) mc.getWindow().getGuiScaledWidth() / 2;
-                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5);
                         break;
                     case TOP_RIGHT:
-                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength;
+                        yTranslate = (float) (captionIndex * verticalSpacing + 5);
                         break;
                     case CENTER_RIGHT:
-                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength * 1.0F;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5) * 1.0F;
+                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength;
+                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() / 2) - (float) (captionIndex * verticalSpacing + 5);
                         break;
                     default: //if there's any invalid input just show it in the bottom right
-                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength * 1.0F - 2.0F;
-                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 30) - (float) (captionIndex * verticalSpacing) * 1.0F;
+                        xTranslate = (float) mc.getWindow().getGuiScaledWidth() - (float) halfMaxLength - 2.0F;
+                        yTranslate = (float) (mc.getWindow().getGuiScaledHeight() - 30) - (float) (captionIndex * verticalSpacing);
                         break;
                 }
                 poseStack.translate(xTranslate, yTranslate, 0.0F);
@@ -155,19 +151,19 @@ public class OverlayEventHandler extends GuiComponent implements SoundEventListe
     }
 
     @Override
-    public void onPlaySound(SoundInstance soundIn, WeighedSoundEvents accessor) {
+    public void onPlaySound(@NotNull SoundInstance soundIn, WeighedSoundEvents accessor) {
         if (accessor.getSubtitle() != null) {
             Component subtitleText = accessor.getSubtitle();
             if (!this.subtitles.isEmpty()) {
                 for (SubtitleOverlay.Subtitle caption : this.subtitles) {
                     if (caption.getText().equals(subtitleText)) {
-                        caption.refresh(new Vec3((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ()));
+                        caption.refresh(new Vec3(soundIn.getX(), soundIn.getY(), soundIn.getZ()));
                         return;
                     }
                 }
             }
             this.subtitles.add(new SubtitleOverlay.Subtitle(subtitleText,
-                    new Vec3((double) soundIn.getX(), (double) soundIn.getY(), (double) soundIn.getZ())));
+                    new Vec3(soundIn.getX(), soundIn.getY(), soundIn.getZ())));
         }
     }
 }
