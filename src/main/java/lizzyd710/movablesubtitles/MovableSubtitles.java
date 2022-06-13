@@ -46,7 +46,6 @@ public class MovableSubtitles
 
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().gameSettings);
         MinecraftForge.EVENT_BUS.register(new OverlayEventHandler());
     }
 
@@ -61,7 +60,7 @@ public class MovableSubtitles
     {
         // some example code to receive and process InterModComms from other mods
         LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
+                map(m->m.messageSupplier().get()).
                 collect(Collectors.toList()));
     }
 }
