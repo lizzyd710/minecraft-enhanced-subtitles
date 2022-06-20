@@ -5,18 +5,18 @@ loaderVersion="[40,)" #mandatory This is typically bumped every Minecraft versio
 # Review your options at https://choosealicense.com/. All rights reserved is the default copyright stance, and is thus the default here.
 license="GNU GPL v3"
 # A URL to refer people to when problems occur with this mod
-issueTrackerURL="https://github.com/lizzyd710/minecraft-movable-subtitles/issues" #optional
+issueTrackerURL="https://github.com/lizzyd710/minecraft-enhanced-subtitles/issues" #optional
 # A list of mods - how many allowed here is determined by the individual mod loader
 [[mods]] #mandatory
-modId="movablesubtitles" #mandatory
+modId="enhancedsubtitles" #mandatory
 
 # The version number of the mod - there's a few well known ${} variables usable here or just hardcode it
 version="${file.jarVersion}" #mandatory
-displayName="Movable Subtitles" #mandatory
+displayName="Enhanced Subtitles" #mandatory
 
 # A URL to query for updates for this mod. See the JSON update specification <here>
 # updateJSONURL="http://myurl.me/" #optional
-displayURL="https://github.com/lizzyd710/minecraft-movable-subtitles" #optional
+displayURL="https://github.com/lizzyd710/minecraft-enhanced-subtitles" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 # logoFile="examplemod.png" #optional
@@ -26,10 +26,10 @@ displayURL="https://github.com/lizzyd710/minecraft-movable-subtitles" #optional
 authors="Elizabeth Sherrock" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This mod allows the user to change the position of the subtitle overlay.
+This mod allows the user to change the position of the subtitle overlay, along with other enhancements.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
-[[dependencies.movablesubtitles]] #optional
+[[dependencies.enhancedsubtitles]] #optional
     # the modid of the dependency
     modId="forge" #mandatory
     # Does this dependency have to exist - if not, ordering below must be specified
@@ -41,7 +41,7 @@ This mod allows the user to change the position of the subtitle overlay.
     # Side this dependency is applied on - BOTH, CLIENT or SERVER
     side="BOTH"
 # Here's another dependency
-[[dependencies.movablesubtitles]]
+[[dependencies.enhancedsubtitles]]
     modId="minecraft"
     mandatory=true
 # This version range declares a minimum of the current minecraft version up to but not including the next major version

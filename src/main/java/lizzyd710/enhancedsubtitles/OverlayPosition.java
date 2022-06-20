@@ -1,4 +1,4 @@
-package lizzyd710.movablesubtitles;
+package lizzyd710.enhancedsubtitles;
 
 /**
  * Enum for positions of the subtitle overlay.

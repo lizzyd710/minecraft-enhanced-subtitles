@@ -1,9 +1,9 @@
-package lizzyd710.movablesubtitles;
+package lizzyd710.enhancedsubtitles;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import lizzyd710.movablesubtitles.config.MovableSubtitlesConfig;
+import lizzyd710.enhancedsubtitles.config.EnhancedSubtitlesConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -87,7 +87,7 @@ public class OverlayEventHandler extends GuiComponent implements SoundEventListe
                 /*
                 This is where the change happens
                  */
-                OverlayPosition position = MovableSubtitlesConfig.overlayPosition;
+                OverlayPosition position = EnhancedSubtitlesConfig.overlayPosition;
                 float xTranslate, yTranslate;
                 // Factoring some numbers out so it's easier to tell what they do
                 // Also might be changed later when implementing more features.
