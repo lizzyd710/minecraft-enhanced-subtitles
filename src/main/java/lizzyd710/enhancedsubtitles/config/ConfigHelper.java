@@ -1,4 +1,4 @@
-package lizzyd710.movablesubtitles.config;
+package lizzyd710.enhancedsubtitles.config;
 
 import net.minecraftforge.fml.config.ModConfig;
 
@@ -7,7 +7,7 @@ import net.minecraftforge.fml.config.ModConfig;
 public class ConfigHelper {
 
     public static void bakeClient(final ModConfig config) {
-        MovableSubtitlesConfig.overlayPosition = ConfigHolder.CLIENT.overlayPosition.get();
+        EnhancedSubtitlesConfig.overlayPosition = ConfigHolder.CLIENT.overlayPosition.get();
     }
     private static void setValueAndSave(final ModConfig modConfig, final String path, final Object newValue) {
         modConfig.getConfigData().set(path, newValue);

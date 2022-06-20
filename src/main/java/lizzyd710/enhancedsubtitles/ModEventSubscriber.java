@@ -1,12 +1,12 @@
-package lizzyd710.movablesubtitles;
+package lizzyd710.enhancedsubtitles;
 
-import lizzyd710.movablesubtitles.config.ConfigHelper;
+import lizzyd710.enhancedsubtitles.config.ConfigHelper;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
-@Mod.EventBusSubscriber(modid = "movablesubtitles", bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = "enhancedsubtitles", bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class ModEventSubscriber {
     @SubscribeEvent
     public static void onModConfigEvent(final ModConfigEvent event) {

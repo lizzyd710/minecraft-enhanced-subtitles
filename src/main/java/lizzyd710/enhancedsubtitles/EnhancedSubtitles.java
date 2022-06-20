@@ -1,6 +1,6 @@
-package lizzyd710.movablesubtitles;
+package lizzyd710.enhancedsubtitles;
 
-import lizzyd710.movablesubtitles.config.ConfigHolder;
+import lizzyd710.enhancedsubtitles.config.ConfigHolder;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
 import net.minecraftforge.fml.config.ModConfig;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("movablesubtitles")
-public class MovableSubtitles
+@Mod("enhancedsubtitles")
+public class EnhancedSubtitles
 {
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
-    public MovableSubtitles() {
+    public EnhancedSubtitles() {
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
         // Register the enqueueIMC method for modloading
@@ -52,7 +52,7 @@ public class MovableSubtitles
     private void enqueueIMC(final InterModEnqueueEvent event)
     {
         // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("movablesubtitles", "helloworld", () -> {
+        InterModComms.sendTo("enhancedsubtitles", "helloworld", () -> {
             LOGGER.info("Hello world from the MDK"); return "Hello world";});
     }
 
